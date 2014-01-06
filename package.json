@@ -1,0 +1,43 @@
+{
+  "name": "defr",
+  "version": "0.1.0",
+  "description": "A simple usage pattern and lightweight JavaScript library for deferred loading of external CSS and JavaScript resources",
+  "keywords": [
+    "css",
+    "script",
+    "defer",
+    "async",
+    "loader",
+    "localstorage",
+    "caching",
+    "asset",
+    "javascript",
+    "js"
+  ],
+  "homepage": "http://jkphl.github.io/defr",
+  "bugs": "https://github.com/jkphl/defr/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Joschi Kuphal",
+    "email": "joschi@kuphal.net",
+    "url": "http://jkphl.is"
+  },
+  "maintainers": [
+    {
+      "name": "Joschi Kuphal"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkphl/defr"
+  },
+  "scripts": {
+    "dev": "grunt"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

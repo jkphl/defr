@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Test page</title>
+        <noscript id="defr-1" class="defr" itemtype="http://jkphl.is/deferred/asset" itemscope="itemscope">
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-1.css"/>
+            <link itemprop="script" type="text/javascript" href="res/script-1.js" data-onload="alert('loaded')"/>
+            <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
+        </noscript>
+        <noscript id="defr-2" class="defr" itemtype="http://jkphl.is/deferred/asset" itemscope="itemscope">
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
+        </noscript>
+    </head>
+    <body>
+        <h1>Deferred loading of external CSS and JavaScript resources</h1>
+        <p>
+            <button type="button" onclick="defr()">Find deferred assets by class name</button>
+        </p>
+        <script src="../lib/defr.js"></script>
+    </body>
+</html>

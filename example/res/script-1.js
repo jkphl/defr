@@ -1,0 +1,1 @@
+document.getElementsByTagName('body')[0].style.padding = '50px';
