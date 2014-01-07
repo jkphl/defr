@@ -1,0 +1,26 @@
+{
+  "name" : "jkphl/defr",
+  "description" : "A simple usage pattern and lightweight JavaScript library for deferred loading of external CSS and JavaScript resources with optional support for localStorage caching",
+  "repositories" : [ {
+    "type" : "composer",
+    "url" : "https://packagist.org/"
+  }, {
+    "type" : "vcs",
+    "url" : "https://github.com/jkphl/defr"
+  } ],
+  "authors" : [ {
+    "name" : "Joschi Kuphal",
+    "email" : "joschi@kuphal.net",
+    "homepage" : "http://jkphl.is",
+    "role" : "Developer"
+  } ],
+  "support" : {
+    "email" : "joschi@kuphal.net",
+    "issues" : "https://github.com/jkphl/defr/issues",
+    "source" : "https://github.com/jkphl/defr"
+  },
+  "keywords" : [ "css", "javascript", "defer", "external", "localstorage", "cache", "deferring" ],
+  "license" : "MIT",
+  "type" : "library",
+  "homepage" : "http://defr.jkphl.is"
+}
