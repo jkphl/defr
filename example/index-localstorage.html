@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Deferred loading of external CSS and JavaScript resources</title>
+        <noscript id="defr-1" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-1.css"/>
+            <link itemprop="script" type="text/javascript" href="res/script-1.js" onload="console.log('Loaded first script')"/>
+        </noscript>
+        <style>
+body {
+    padding: 2em;
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+li {
+    color: #ccc;
+    text-decoration: line-through;
+    margin-bottom: .5em;
+}
+li.active {
+    color: #090;
+	text-decoration: none;
+}
+label, a {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+        </style>
+    </head>
+    <body>
+        <h1>Deferred loading of external CSS and JavaScript resources</h1>
+        <p>This page features two separate bundles of assets (CSS and JavaScript files; one in the <code>&lt;head&gt;</code> section, one near the closing <code>&lt;body&gt;</code> element) that are not loaded / applied <strong>until you click this button</strong> (JavaScript must be enabled!):</p>
+        <p><button type="button" onclick="defr();this.disabled=true;this.value='Deferred CSS and JavaScript assets have been activated!'">Activate deferred CSS and JavaScript assets</button></p>
+        <p>You will see the results here:</p>
+        <ol>
+            <li id="first-css">This option will become active when the first CSS file has been loaded and applied (first asset bundle).</li>
+            <li id="second-css">This option will become active when the second CSS file has been loaded and applied (first asset bundle).</li>
+            <li id="first-script">This option will become active when the first JavaScript file has been loaded and applied (first asset bundle). Also, it features an <code>onload</code> attribute, which should print a happy "Loaded first script" to your console as soon as it is activated.</li>
+            <li id="second-script">This option will become active when the second JavaScript file has been loaded and applied (second asset bundle). It contains instructions to print "Loaded second script" to your console as soon as it is activated.</li>
+        </ol>
+        <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
+        <form>
+    <h2>Loading with localStorage caching</h2>
+    <p>In this example, the assets get cached in the <code>localStorage</code> of your browser once they have been fetched from the remote server. You can see this in the resources tab of your developer tools. If you reload the page, you won't see any further requests for the assets, as they are directly delivered from the <code>localStorage</code>. You can <button type="button" onclick="try{localStorage.clear()}catch(e){}">clear the <code>localStorage</code></button> and retry.</p>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.localstorage.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>There's also a <a href="index-simple.html" onclick="document.cookie='defr=0'">simple version of this example</a> without <code>localStorage</code> caching.</p>
+</form>
+        <noscript id="defr-2" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
+            <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
+        </noscript> 
+        <script src="../lib/defr.localstorage.min.js"></script>
+        <script>/* <![CDATA[ */(document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
+    </body>
+</html>

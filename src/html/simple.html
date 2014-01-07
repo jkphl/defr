@@ -1,0 +1,5 @@
+<form>
+    <h2>Simple asset loading</h2>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>@@defr</code> library itself). This is the effect of deferred loading.</p>
+    <p>There's also a version of this example that makes use of <a href="index-localstorage.html" onclick="document.cookie='defr=0'">localStorage caching</a>.</p>
+</form>

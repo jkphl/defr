@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Deferred loading of external CSS and JavaScript resources</title>
+        <noscript id="defr-1" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-1.css"/>
+            <link itemprop="script" type="text/javascript" href="res/script-1.js" onload="console.log('Loaded first script')"/>
+        </noscript>
+        <style>
+body {
+    padding: 2em;
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+li {
+    color: #ccc;
+    text-decoration: line-through;
+    margin-bottom: .5em;
+}
+li.active {
+    color: #090;
+	text-decoration: none;
+}
+label, a {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+        </style>
+    </head>
+    <body>
+        <h1>Deferred loading of external CSS and JavaScript resources</h1>
+        <p>This page features two separate bundles of assets (CSS and JavaScript files; one in the <code>&lt;head&gt;</code> section, one near the closing <code>&lt;body&gt;</code> element) that are not loaded / applied <strong>until you click this button</strong> (JavaScript must be enabled!):</p>
+        <p><button type="button" onclick="defr();this.disabled=true;this.value='Deferred CSS and JavaScript assets have been activated!'">Activate deferred CSS and JavaScript assets</button></p>
+        <p>You will see the results here:</p>
+        <ol>
+            <li id="first-css">This option will become active when the first CSS file has been loaded and applied (first asset bundle).</li>
+            <li id="second-css">This option will become active when the second CSS file has been loaded and applied (first asset bundle).</li>
+            <li id="first-script">This option will become active when the first JavaScript file has been loaded and applied (first asset bundle). Also, it features an <code>onload</code> attribute, which should print a happy "Loaded first script" to your console as soon as it is activated.</li>
+            <li id="second-script">This option will become active when the second JavaScript file has been loaded and applied (second asset bundle). It contains instructions to print "Loaded second script" to your console as soon as it is activated.</li>
+        </ol>
+        <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
+        @@description
+        <noscript id="defr-2" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
+            <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
+            <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
+        </noscript> 
+        <script src="../lib/@@defr"></script>
+        <script>/* <![CDATA[ */(document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
+    </body>
+</html>

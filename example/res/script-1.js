@@ -1,1 +1,1 @@
-document.getElementsByTagName('body')[0].style.padding = '50px';
+document.getElementById('first-script').className = 'active';
