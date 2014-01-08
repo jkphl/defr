@@ -1,0 +1,35 @@
+{
+  "name": "defr",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jkphl/defr",
+  "description": "A simple usage pattern and lightweight JavaScript library for deferred loading of external CSS and JavaScript resources with optional support for localStorage caching.",
+  "main": ["lib/defr.simple.min.js", "lib/defr.localstorage.min.js"],
+  "keywords": [
+    "css",
+    "script",
+    "defer",
+    "async",
+    "loader",
+    "localstorage",
+    "caching",
+    "asset",
+    "javascript",
+    "js"
+  ],
+  "authors": [
+    "Joschi Kuphal <joschi@kuphal.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "example",
+    "src",
+    "Gruntfile.js",
+    "composer.json",
+    "package.json"
+  ]
+}
