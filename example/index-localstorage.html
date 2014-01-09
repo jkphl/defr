@@ -44,14 +44,14 @@ label, a {
         <form>
     <h2>Loading with localStorage caching</h2>
     <p>In this example, the assets get cached in the <code>localStorage</code> of your browser once they have been fetched from the remote server. You can see this in the resources tab of your developer tools. If you reload the page, you won't see any further requests for the assets, as they are directly delivered from the <code>localStorage</code>. You can <button type="button" onclick="try{localStorage.clear()}catch(e){}">clear the <code>localStorage</code></button> and retry.</p>
-    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.localstorage.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.localstorage.js</code> library itself). This is the effect of deferred loading.</p>
     <p>There's also a <a href="index-simple.html" onclick="document.cookie='defr=0'">simple version of this example</a> without <code>localStorage</code> caching.</p>
 </form>
         <noscript id="defr-2" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
             <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
             <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
         </noscript> 
-        <script src="../lib/defr.localstorage.min.js"></script>
+        <script src="../lib/defr.localstorage.js"></script>
         <script>/* <![CDATA[ */(document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
     </body>
 </html>

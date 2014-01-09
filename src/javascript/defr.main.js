@@ -4,6 +4,10 @@
 	comma					= ',',
 	data					= 'data-',
 	createElement			= 'createElement',
+	appendChild				= 'appendChild',
+	getAttribute			= 'getAttribute',
+	setAttribute			= 'setAttribute',
+	removeAttribute			= 'removeAttribute',
 	indexOf					= 'indexOf',
     headElementName			= 'head',
 	linkElementName			= 'link',
@@ -16,6 +20,9 @@
 	onReadyStateChangeName	= 'onreadystatechange',
 	lengthName				= 'length',
 	nameName				= 'name',
+	localNameName			= 'localName',
+	itemprop				= 'itemprop',
+	querySelectorAll		= 'querySelectorAll',
 	globalAttributes		= ',accesskey,class,contenteditable,dir,draggable,dropzone,hidden,id,lang,spellcheck,style,tabindex,title,translate,',
 	scriptAttributes		= globalAttributes + data + 'crossorigin,' + data + 'charset,onerror,' + onloadName + comma,
 	defrLoaded				= '__d';
@@ -58,22 +65,30 @@
      * 
      * @return {void}
      */
-    function defrScript(link) {
-        var script              = doc[createElement](scriptElementName);
-        for (var attribute = 0, attributes = link.attributes, attributeName; attribute < attributes[lengthName]; ++ attribute) {
-            var attributeName	= attributes[attribute][nameName].toLowerCase(),
-            copyAttribute		= scriptAttributes[indexOf](comma + attributeName + comma) >= 0,
-            eventAttribute		= attributeName[indexOf]('on') === 0,
-            isDataAttribute		= attributeName[indexOf](data) === 0;
-            if (copyAttribute || eventAttribute || isDataAttribute) {
-                script.setAttribute(attributeName.substr((isDataAttribute && copyAttribute) * 5), link.getAttribute(attributeName)); 
+    function defrScript(link, tmp) {
+        for (var attribute = 0, attributes = link.attributes, attributeName, attributeType, script = doc[createElement](scriptElementName); attribute < attributes[lengthName]; ++ attribute) {
+            attributeName		= attributes[attribute][nameName].toLowerCase();
+            if (attributeType = (scriptAttributes[indexOf](comma + attributeName + comma) >= 0) + (attributeName[indexOf](data) === 0)) {
+                script[setAttribute](attributeName.substr([0, 5][attributeType - 1]), link[getAttribute](attributeName)); 
             }
         }
-        script.type							= javascriptMime;
-        script.defer						= true;
-        script.src							= link.href;
-        load(expandScriptOnload(script), true);
+        script.type				= javascriptMime;
+        script.defer			= true;
+        load(expandScriptOnload(script), tmp, true);
     };
+    
+    /**
+     * Revert the temporary href attribute
+     * 
+     * @param {Element} element				Element
+     * @param {String} tmp					Temporary resource attribute name
+     * @return {Element}					Reverted element
+     */
+    function revertHref(element, tmp) {
+    	element[(element[localNameName] == linkElementName) ? 'href' : 'src'] = element[getAttribute](tmp);
+    	element[removeAttribute](tmp);
+    	return element;
+    }
     
     /**
      * Trigger deferred loading of external CSS and JavaScript resources
@@ -81,18 +96,20 @@
      * @return {void}
      */
     win.defr = function(selector) {
-        for (var defr = 0, defrs = doc.querySelectorAll(selector || defaultSelector), parser, assets = []; defr < defrs[lengthName]; ++defr) {
-            parser              = doc[createElement](headElementName);
-            parser.innerHTML    = defrs[defr].textContent || defrs[defr].innerText;
-            for (var asset = 0, assets = parser.querySelectorAll(linkElementName + '[rel=' + stylesheetRel + '], ' + linkElementName + '[type="' + javascriptMime + '"]'), assetElement; asset < assets[lengthName]; ++asset) {
-            	assetElement	= assets[asset];
-            	if (assetElement.rel == stylesheetRel) {
-            		assetElement.removeAttribute('itemprop');
-       				load(assetElement);
-            	} else {
-            		defrScript(assetElement);
-            	}
-            }
+    	
+    	/**
+    	 * Due to Internet Explorer's "speculative downloads" the href attribute
+    	 * of the <link> elements need to be masked / substituted prior to parsing,
+    	 * as IE would immediately start downloading the resources (even if they
+    	 * are not part of the DOM yet). The same would apply to <script> elements
+    	 * with a src attribute (at least in older IE versions), but at this stage
+    	 * there are only <link> elements. 
+    	 */
+        for (var defr = 0, defrs = doc[querySelectorAll](selector || defaultSelector), parser = doc[createElement](headElementName), tmp = data + (+new Date()); defr < defrs[lengthName]; parser.innerHTML += (defrs[defr].textContent || defrs[defr].innerText).replace(/\s+href\=/g, ' ' + tmp + '='), ++defr) {}
+        
+        // As opposed to stylesheets, scripts need to be rewritten / traversed 
+        for (var asset = 0, assets = parser[querySelectorAll](linkElementName + '[rel=' + stylesheetRel + '], ' + linkElementName + '[type="' + javascriptMime + '"]'), assetElement; asset < assets[lengthName]; ++asset) {
+        	[defrScript, load][1 * (assets[asset].rel == stylesheetRel)](assets[asset], tmp);
         }
     }
     

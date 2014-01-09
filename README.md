@@ -122,7 +122,7 @@ To clear the `localStorage` for a certain (sub)domain, simply issue a `localStor
 * Known problems
 ----------------
 
-At the moment, Internet Explorer (tested  with v11) will redundantly request the external resources although they have already been cached in `localStorage`. I believe this to happen due to what IE calls "speculative downloads". I'll investigate this later (and probably will have to change the way I'm parsing the `<noscript>` content right now).
+Internet Explorer performs what is called "speculative downloads", i.e. it automatically prefetches e.g. CSS resources in the moment when you create a `<link>` element and give it a `href` attribute. It doesn't matter if the element is already part of the DOM — Internet Explorer will fetch it anyway, which kinda foils the localStorage approach. For this reason, it is necessary to trick IE by temporarily substituting the name of the `href` attribute against something different so that the speculative downloads aren't triggered. The current stage of *defr* does exactly this, so at least IE 11 behaves as expected now. I didn't test older IE versions yet though.
 
 
 Live demo

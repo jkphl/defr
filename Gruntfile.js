@@ -63,12 +63,16 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		rename: {
-			main: {
+		copy: {
+			library: {
 				files: [
 					{src: ['lib/simple/defr.main.js'], dest: 'lib/defr.simple.js'},
+					{src: ['lib/localstorage/defr.main.js'], dest: 'lib/defr.localstorage.js'}
+				]
+			},
+			example: {
+				files: [
 					{src: ['lib/simple/index.html'], dest: 'example/index-simple.html'},
-					{src: ['lib/localstorage/defr.main.js'], dest: 'lib/defr.localstorage.js'},
 					{src: ['lib/localstorage/index.html'], dest: 'example/index-localstorage.html'}
 				]
 			}
@@ -76,16 +80,16 @@ module.exports = function(grunt) {
 		clean: ['lib/simple', 'lib/localstorage'],
 		uglify : {
 			simple : {
-				src : 'lib/defr.simple.js',
+				src : 'lib/simple/defr.main.js',
 				dest : 'lib/defr.simple.min.js'
 			},
 			localstorage : {
-				src : 'lib/defr.localstorage.js',
+				src : 'lib/localstorage/defr.main.js',
 				dest : 'lib/defr.localstorage.min.js'
 			}
 		},
 		watch : {
-			javascript : {
+			build : {
 				files : ['src/*/*'],
 				tasks : ['default'],
 				options : {
@@ -96,8 +100,8 @@ module.exports = function(grunt) {
 	});
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-replace');
-	grunt.loadNpmTasks('grunt-contrib-rename');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.registerTask('default', ['replace:simple', 'replace:localstorage', 'uglify', 'replace:defrSimple', 'replace:defrLocalstorage', 'rename', 'clean']);
+	grunt.registerTask('default', ['replace:simple', 'replace:localstorage', 'uglify', 'copy:library', 'replace:defrSimple', 'replace:defrLocalstorage', 'copy:example', 'clean']);
 }

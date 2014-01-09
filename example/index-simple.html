@@ -43,7 +43,7 @@ label, a {
         <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
         <form>
     <h2>Simple asset loading</h2>
-    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.simple.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.simple.js</code> library itself). This is the effect of deferred loading.</p>
     <p>There's also a version of this example that makes use of <a href="index-localstorage.html" onclick="document.cookie='defr=0'">localStorage caching</a>.</p>
 </form>
 
@@ -51,7 +51,7 @@ label, a {
             <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
             <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
         </noscript> 
-        <script src="../lib/defr.simple.min.js"></script>
+        <script src="../lib/defr.simple.js"></script>
         <script>/* <![CDATA[ */(document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
     </body>
 </html>

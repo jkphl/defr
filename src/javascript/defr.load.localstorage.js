@@ -62,10 +62,10 @@
 				var callback			= new Function('', obj[attributesName][attribute]);
 				element[attribute]		= (attribute == onloadName) ? wrapOnloadCallback(callback) : callback;
 			} else {
-				element.setAttribute(attribute, obj[attributesName][attribute]);
+				element[setAttribute](attribute, obj[attributesName][attribute]);
 			}
 		}
-		element.appendChild(doc.createTextNode(obj.content));
+		element[appendChild](doc.createTextNode(obj.content));
 		return element;
 	}
 	
@@ -135,27 +135,29 @@
 	}
 	
 	/**
-	 * Find / retrieve and append a cached element and append it 
+	 * Find a cached element in the localStorage (or fetch it from it's remote server) and append to the <head> of the document 
 	 * 
 	 * @param {Element} element			Element representing an external resource
+	 * @param {String} tmp				Temporary resource attribute name
 	 * @param {Boolean} script			Whether it's a <script> element
-	 * @return {Element}				Cached element
+	 * @return {void}
 	 */
-	function load(element, script) {
+	function load(element, tmp, script) {
 		
 		// If the local storage is supported
 		if (localStorageSupport) {
 			try {
-				var url			= element[script ? 'src' : 'href'],
+				var url			= element[getAttribute](tmp),
 				obj				= {
-					element		: (element.localName == scriptElementName) ? scriptElementName : styleElementName,
+					element		: script ? scriptElementName : styleElementName,
 					attributes	: {},
 					url			: url,
 					key			: element.id || url,
-					expire		: parseInt(element.getAttribute(data + expireName) || 0, 10),
-					revision	: element.getAttribute(data + revisionName)
+					expire		: parseInt(element[getAttribute](data + expireName) || 0, 10),
+					revision	: element[getAttribute](data + revisionName)
 				},
 				cached			= JSON.parse(localStorageAlias.getItem(localStoragePrefix + obj.key) || 'false');
+				element[removeAttribute](tmp);
 				
 				// If the element hasn't been cached before or is expired: Retrieve it via XHR
 				if (!isValidCacheElement(cached, obj)) {
@@ -165,9 +167,9 @@
 					fetch(url, function(responseText, responseType) {
 						obj.content		= responseText;
 						obj.type		= responseType;
-						head.appendChild(cache(element, obj))[onloadName]();
+						head[appendChild](cache(element, obj))[onloadName]();
 					}, function(error) {
-						(element.onerror || emptyFunction).call(head.appendChild(element));
+						(element.onerror || emptyFunction).call(head[appendChild](element));
 					});
 					
 					return;
@@ -180,5 +182,5 @@
 		}
 		
 		// Fallback: Simply append the given element (no caching in localStorage)
-		(element[onloadName] || emptyFunction).call(head.appendChild(element));
+		(element[onloadName] || emptyFunction).call(head[appendChild](element));
 	};
