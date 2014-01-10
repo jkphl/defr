@@ -131,6 +131,27 @@ Live demo
 You can try out these two demo pages [with](http://defr.jkphl.is/index-localstorage.html) and [without](http://defr.jkphl.is/index-simple.html) `localStorage` support.
 
 
+Supported / tested browsers
+---------------------------
+
+* Internet Explorer 6 (polyfilled library)
+* Internet Explorer 7 (polyfilled library + special markup)
+* Internet Explorer 8 (polyfilled library + special markup)
+* Internet Explorer 9 (polyfilled library)
+* Internet Explorer 11 (all versions)
+* Chrome 31 (all versions)
+* Firefox 26 (all versions)
+* Opera 12.10 (all versions)
+* Opera 12.16 (all versions)
+
+
+Current problems / caveats
+--------------------------
+* onload handler of `<script>` elements doesn't get called in IE8 `localStorage` mode
+* IE8 proprietary method of setting `<script>` element content in `def.load.localstorage.js` 
+* IE9 is buggy
+
+
 Resources
 ---------
 

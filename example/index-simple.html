@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <title>Deferred loading of external CSS and JavaScript resources</title>
+        <!--[if (gte IE 7)&(lte IE 8)]><comment class="defr"><![endif]-->
         <noscript id="defr-1" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
             <link rel="stylesheet" type="text/css" href="res/stylesheet-1.css"/>
             <link itemprop="script" type="text/javascript" href="res/script-1.js" onload="console.log('Loaded first script')"/>
         </noscript>
+        <style><![CDATA[/*</comment><!--*/]]>--></style>
         <style>
 body {
     padding: 2em;
@@ -28,6 +30,8 @@ label, a {
     text-decoration: underline;
 }
         </style>
+        
+        
     </head>
     <body>
         <h1>Deferred loading of external CSS and JavaScript resources</h1>
@@ -43,15 +47,17 @@ label, a {
         <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
         <form>
     <h2>Simple asset loading</h2>
-    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.simple.js</code> library itself). This is the effect of deferred loading.</p>
-    <p>There's also a version of this example that makes use of <a href="index-localstorage.html" onclick="document.cookie='defr=0'">localStorage caching</a>.</p>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.simple.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>There's also a version of this example that makes use of <code>localStorage</code> caching. Try the <a href="index-localstorage.html" onclick="document.cookie='defr=0'">version for modern browsers</a> or the polyfilled <a href="index-localstorage-polyfilled.html" onclick="document.cookie='defr=0'">version for older ones</a>.</p>
 </form>
 
-        <noscript id="defr-2" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
-            <link rel="prefetch" type="text/javascript" href="res/script-2.js"/>
+        <!--[if (gte IE 7)&(lte IE 8)]><comment class="defr"><![endif]-->
+        <noscript id="defr-2" class="defr" itemscope="itemscope">
+            <link itemprop="script" rel="prefetch" type="text/javascript" href="res/script-2.js"/>
             <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
-        </noscript> 
-        <script src="../lib/defr.simple.js"></script>
-        <script>/* <![CDATA[ */(document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
+        </noscript>
+        <style><![CDATA[/*</comment><!--*/]]>--></style>
+        <script src="../lib/defr.simple.min.js"></script>
+        <script>/* <![CDATA[ */ window.console = window.console || {log: function(msg) { alert('This browser doesn\'t support printing to the console,\nso the following message is shown in this alert box:\n\n' + msg); }}; (document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
     </body>
 </html>

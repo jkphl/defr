@@ -6,8 +6,7 @@
 	elementName					= 'element',
 	cachedName					= 'cached',
 	attributesName				= 'attributes',
-	styleAttributes				= globalAttributes + 'media,type,scoped,onerror,' + onloadName + comma,
-	emptyFunction				= function(){};
+	styleAttributes				= globalAttributes + 'media,type,scoped,onerror,' + onloadName + comma;
 	try {
 		var localStorageAlias	= localStorage;
 		localStorageAlias.setItem(localStoragePrefix, localStoragePrefix);
@@ -65,7 +64,14 @@
 				element[setAttribute](attribute, obj[attributesName][attribute]);
 			}
 		}
-		element[appendChild](doc.createTextNode(obj.content));
+		
+		try {
+			element[appendChild](doc.createTextNode(obj.content));
+			
+		// IE 8
+		} catch(e) {
+			element.text			= obj.content;
+		}
 		return element;
 	}
 	
@@ -167,7 +173,7 @@
 					fetch(url, function(responseText, responseType) {
 						obj.content		= responseText;
 						obj.type		= responseType;
-						head[appendChild](cache(element, obj))[onloadName]();
+						append(cache(element, obj), tmp);
 					}, function(error) {
 						(element.onerror || emptyFunction).call(head[appendChild](element));
 					});
@@ -180,7 +186,7 @@
 				}
 			} catch(e) {}
 		}
-		
-		// Fallback: Simply append the given element (no caching in localStorage)
-		(element[onloadName] || emptyFunction).call(head[appendChild](element));
+
+		// Fallback: Simply append the given element (no caching in localStorage) and call the onload handler (if available)
+		append(element, tmp);
 	};

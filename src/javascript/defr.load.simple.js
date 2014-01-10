@@ -6,5 +6,5 @@
      * @return {void}
      */
 	function load(element, tmp) {
-	    head[appendChild](revertHref(element, tmp));
+		(element[onloadName] || emptyFunction).call(head[appendChild](revertSubstitute(element, tmp)));
 	}

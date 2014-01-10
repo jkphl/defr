@@ -1,33 +1,33 @@
 (function(auto, defaultSelector, win, doc){
     'use strict';
-    var head = doc.head || doc.getElementsByTagName(headElementName)[0],
-	comma					= ',',
-	data					= 'data-',
-	createElement			= 'createElement',
-	appendChild				= 'appendChild',
-	getAttribute			= 'getAttribute',
-	setAttribute			= 'setAttribute',
-	removeAttribute			= 'removeAttribute',
-	indexOf					= 'indexOf',
-    headElementName			= 'head',
-	linkElementName			= 'link',
-	scriptElementName		= 'script',
-	styleElementName		= 'style',
-	stylesheetRel			= styleElementName + 'sheet',
-	javascriptMime			= 'text/java' + scriptElementName,
-	onloadName				= 'onload',
-	readyStateName			= 'readyState',
-	onReadyStateChangeName	= 'onreadystatechange',
-	lengthName				= 'length',
-	nameName				= 'name',
-	localNameName			= 'localName',
-	itemprop				= 'itemprop',
-	querySelectorAll		= 'querySelectorAll',
-	globalAttributes		= ',accesskey,class,contenteditable,dir,draggable,dropzone,hidden,id,lang,spellcheck,style,tabindex,title,translate,',
-	scriptAttributes		= globalAttributes + data + 'crossorigin,' + data + 'charset,onerror,' + onloadName + comma,
-	defrLoaded				= '__d';
-    
-@@load
+    var comma					= ',',
+	data						= 'data-',
+	createElement				= 'createElement',
+	appendChild					= 'appendChild',
+	getAttribute				= 'getAttribute',
+	setAttribute				= 'setAttribute',
+	removeAttribute				= 'removeAttribute',
+	indexOf						= 'indexOf',
+    headElementName				= 'head',
+	linkElementName				= 'link',
+	scriptElementName			= 'script',
+	styleElementName			= 'style',
+	stylesheetRel				= styleElementName + 'sheet',
+	javascriptMime				= 'text/java' + scriptElementName,
+	onloadName					= 'onload',
+	readyStateName				= 'readyState',
+	onReadyStateChangeName		= 'onreadystatechange',
+	lengthName					= 'length',
+	nameName					= 'name',
+	localNameName				= 'localName',
+	itemprop					= 'itemprop',
+	querySelectorAll			= 'querySelectorAll',
+	globalAttributes			= ',accesskey,class,contenteditable,dir,draggable,dropzone,hidden,id,lang,spellcheck,style,tabindex,title,translate,',
+	scriptAttributes			= globalAttributes + data + 'crossorigin,' + data + 'charset,onerror,' + onloadName + comma,
+	defrLoaded					= '__d',
+	emptyFunction				= function(){},
+	head						= doc.head || doc.getElementsByTagName(headElementName)[0];
+@@localstorage
     
 	/**
 	 * Construct a cross browser onload callback for stylesheets and scripts
@@ -53,9 +53,9 @@
      * @return {Element}					<script> element (for chaining)
      */
     function expandScriptOnload(script) {
-    	if (typeof script[onloadName] == 'function') {
+    	if (script[onloadName]) {
             script[onloadName]					=
-            script[onReadyStateChangeName]		= wrapOnloadCallback(script[onloadName]);
+            script[onReadyStateChangeName]		= wrapOnloadCallback((typeof script[onloadName] == 'function') ? script[onloadName] : new Function('', script[onloadName]));
         }
         return script;
     }
@@ -77,45 +77,11 @@
         load(expandScriptOnload(script), tmp, true);
     };
     
-    /**
-     * Revert the temporary href attribute
-     * 
-     * @param {Element} element				Element
-     * @param {String} tmp					Temporary resource attribute name
-     * @return {Element}					Reverted element
-     */
-    function revertHref(element, tmp) {
-    	element[(element[localNameName] == linkElementName) ? 'href' : 'src'] = element[getAttribute](tmp);
-    	element[removeAttribute](tmp);
-    	return element;
-    }
-    
-    /**
-     * Trigger deferred loading of external CSS and JavaScript resources
-     * 
-     * @return {void}
-     */
-    win.defr = function(selector) {
-    	
-    	/**
-    	 * Due to Internet Explorer's "speculative downloads" the href attribute
-    	 * of the <link> elements need to be masked / substituted prior to parsing,
-    	 * as IE would immediately start downloading the resources (even if they
-    	 * are not part of the DOM yet). The same would apply to <script> elements
-    	 * with a src attribute (at least in older IE versions), but at this stage
-    	 * there are only <link> elements. 
-    	 */
-        for (var defr = 0, defrs = doc[querySelectorAll](selector || defaultSelector), parser = doc[createElement](headElementName), tmp = data + (+new Date()); defr < defrs[lengthName]; parser.innerHTML += (defrs[defr].textContent || defrs[defr].innerText).replace(/\s+href\=/g, ' ' + tmp + '='), ++defr) {}
-        
-        // As opposed to stylesheets, scripts need to be rewritten / traversed 
-        for (var asset = 0, assets = parser[querySelectorAll](linkElementName + '[rel=' + stylesheetRel + '], ' + linkElementName + '[type="' + javascriptMime + '"]'), assetElement; asset < assets[lengthName]; ++asset) {
-        	[defrScript, load][1 * (assets[asset].rel == stylesheetRel)](assets[asset], tmp);
-        }
-    }
+@@select
     
     // Automatically trigger deferred loading now! 
     if (auto) {
     	win.defr();
     }
     
-})(false, 'noscript[itemtype="http://defr.jkphl.is/assets"],noscript.defr', window, document);
+})(false, @@queryselector, window, document);
