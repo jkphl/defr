@@ -11,9 +11,12 @@
 	 * This method has successfully been tested with:
 	 * 
 	 * - Chrome 31
+	 * - Firefox 25
 	 * - Firefox 26
 	 * - Opera 12.16
 	 * - Internet Explorer 11
+	 * - Safari 5.1.8
+	 * - Safari 5.1.10
 	 * 
 	 * @param {String} assetsClassName		Assets container class name
 	 * @return {Array}						Extracted assets
