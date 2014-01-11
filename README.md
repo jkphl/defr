@@ -134,21 +134,43 @@ You can try out these two demo pages [with](http://defr.jkphl.is/index-localstor
 Supported / tested browsers
 ---------------------------
 
-* Internet Explorer 6 (polyfilled library)
-* Internet Explorer 7 (polyfilled library + special markup)
-* Internet Explorer 8 (polyfilled library + special markup)
-* Internet Explorer 9 (polyfilled library)
-* Internet Explorer 11 (all versions)
-* Chrome 31 (all versions)
-* Firefox 26 (all versions)
-* Opera 12.10 (all versions)
-* Opera 12.16 (all versions)
+<table>
+	<caption>Windows</caption>
+	<thead>
+		<tr>
+			<th> </th>
+			<th>Windows XP</th>
+			<th>Windows 7</th>
+			<th>Windows 8</th>
+			<th>Windows 8.1</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>IE 6</th>
+			<td class="partly">All versions</td>
+			<td class="none"> </td>
+			<td class="none"> </td>
+			<td class="none"> </td>
+		</tr>
+	</tbody>
+</table>
+
+* Internet Explorer 6 (Windows XP, polyfilled library)
+* Internet Explorer 7 (Windows XP, polyfilled library + special markup)
+* Internet Explorer 8 (Windows XP, polyfilled library + special markup)
+* Internet Explorer 9 (Windows 7, polyfilled library)
+* Internet Explorer 11 (Windows 7/8.1, all versions)
+* Chrome 31 (Windows XP/7, OS X, all versions)
+* Firefox 26 (Windows XP/7, OS X, all versions)
+* Opera 12.10 (Windows 7 all versions)
+* Opera 12.16 (Windows 7, all versions)
+* Safari 5.1.8 (OS X, all versions)
 
 
 Current problems / caveats
 --------------------------
 * onload handler of `<script>` elements doesn't get called in IE8 `localStorage` mode
-* IE8 proprietary method of setting `<script>` element content in `def.load.localstorage.js` 
 * IE9 is buggy
 
 
