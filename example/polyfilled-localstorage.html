@@ -46,18 +46,18 @@ label, a {
         </ol>
         <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
         <form>
-    <h2>Simple asset loading</h2>
-    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.simple.polyfilled.min.js</code> library itself). This is the effect of deferred loading.</p>
-    <p>There's also a version of this example that makes use of <code>localStorage</code> caching. Try the <a href="index-localstorage.html" onclick="document.cookie='defr=0'">version for modern browsers</a> or the polyfilled <a href="index-localstorage-polyfilled.html" onclick="document.cookie='defr=0'">version for older ones</a>.</p>
+    <h2>Loading with localStorage caching</h2>
+    <p>In this example, the assets get cached in the <code>localStorage</code> of your browser once they have been fetched from the remote server. You can see this in the resources tab of your developer tools. If you reload the page, you won't see any further requests for the assets, as they are directly delivered from the <code>localStorage</code>. You can <button type="button" onclick="try{localStorage.clear()}catch(e){}">clear the <code>localStorage</code></button> and retry.</p>
+    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.polyfilled-localstorage.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>There's also a simple version of this example without <code>localStorage</code> caching. Try the <a href="modern-simple.html" onclick="document.cookie='defr=0'">version for modern browsers</a> or the polyfilled <a href="polyfilled-simple.html" onclick="document.cookie='defr=0'">version for older ones</a>.</p>
 </form>
-
         <!--[if (gte IE 7)&(lte IE 8)]><comment class="defr"><![endif]-->
         <noscript id="defr-2" class="defr" itemscope="itemscope">
             <link itemprop="script" rel="prefetch" type="text/javascript" href="res/script-2.js"/>
             <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
         </noscript>
         <style><![CDATA[/*</comment><!--*/]]>--></style>
-        <script src="../lib/defr.simple.polyfilled.min.js"></script>
+        <script src="../lib/defr.polyfilled-localstorage.min.js"></script>
         <script>/* <![CDATA[ */ window.console = window.console || {log: function(msg) { alert('This browser doesn\'t support printing to the console,\nso the following message is shown in this alert box:\n\n' + msg); }}; (document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
     </body>
 </html>

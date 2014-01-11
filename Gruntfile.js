@@ -2,95 +2,83 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg : grunt.file.readJSON('package.json'),
 		replace: {
-			simple: {
+			modernSimple: {
 				options: {
 					patterns: [
 						{
-							match: 'localstorage',
-							replacement: ''
+							match: 'load',
+							replacement: '<%= grunt.file.read("src/javascript/simple.js") %>'
 						}, {
-							match: 'select',
-							replacement: '<%= grunt.file.read("src/javascript/defr.select.modern.js") %>'
+							match: 'assets',
+							replacement: '<%= grunt.file.read("src/javascript/modern/assets.js") %>'
 						}, {
-							match: 'queryselector',
-							replacement: '\'noscript[itemtype="http://defr.jkphl.is/assets"],noscript.defr\''
-						}, {
-							match: 'append',
-							replacement: 'load'
+							match: 'apply',
+							replacement: '<%= grunt.file.read("src/javascript/modern/apply.js") %>'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/javascript/defr.main.js'], dest: 'lib/simple'}
+					{expand: true, flatten: true, src: ['src/javascript/main.js'], dest: 'lib/modern/simple'}
 				]
 			},
-			simplePolyfilled: {
+			modernLocalstorage: {
 				options: {
 					patterns: [
 						{
-							match: 'localstorage',
-							replacement: ''
+							match: 'load',
+							replacement: '<%= grunt.file.read("src/javascript/localstorage.js") %>'
 						}, {
-							match: 'select',
-							replacement: '<%= grunt.file.read("src/javascript/defr.select.polyfilled.js") %>'
+							match: 'assets',
+							replacement: '<%= grunt.file.read("src/javascript/modern/assets.js") %>'
 						}, {
-							match: 'queryselector',
-							replacement: '{itemtype: \'http://defr.jkphl.is/assets\', className: \'defr\'}'
-						}, {
-							match: 'append',
-							replacement: 'load'
+							match: 'apply',
+							replacement: '<%= grunt.file.read("src/javascript/modern/apply.js") %>'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/javascript/defr.main.js'], dest: 'lib/simple-polyfilled'}
+					{expand: true, flatten: true, src: ['src/javascript/main.js'], dest: 'lib/modern/localstorage'}
 				]
 			},
-			localstorage: {
+			polyfilledSimple: {
 				options: {
 					patterns: [
 						{
-							match: 'localstorage',
-							replacement: '<%= grunt.file.read("src/javascript/defr.load.localstorage.js") %>'
+							match: 'load',
+							replacement: '<%= grunt.file.read("src/javascript/simple.js") %>'
 						}, {
-							match: 'select',
-							replacement: '<%= grunt.file.read("src/javascript/defr.select.modern.js") %>'
+							match: 'assets',
+							replacement: '<%= grunt.file.read("src/javascript/polyfilled/assets.js") %>'
 						}, {
-							match: 'queryselector',
-							replacement: '\'noscript[itemtype="http://defr.jkphl.is/assets"],noscript.defr\''
-						}, {
-							match: 'append',
-							replacement: 'append'
+							match: 'apply',
+							replacement: '<%= grunt.file.read("src/javascript/polyfilled/apply.js") %>'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/javascript/defr.main.js'], dest: 'lib/localstorage'}
+					{expand: true, flatten: true, src: ['src/javascript/main.js'], dest: 'lib/polyfilled/simple'}
 				]
 			},
-			localstoragePolyfilled: {
+			polyfilledLocalstorage: {
 				options: {
 					patterns: [
 						{
-							match: 'localstorage',
-							replacement: '<%= grunt.file.read("src/javascript/defr.load.localstorage.js") %>'
+							match: 'load',
+							replacement: '<%= grunt.file.read("src/javascript/localstorage.js") %>'
 						}, {
-							match: 'select',
-							replacement: '<%= grunt.file.read("src/javascript/defr.select.polyfilled.js") %>'
+							match: 'assets',
+							replacement: '<%= grunt.file.read("src/javascript/polyfilled/assets.js") %>'
 						}, {
-							match: 'queryselector',
-							replacement: '{itemtype: \'http://defr.jkphl.is/assets\', className: \'defr\'}'
-						}, {
-							match: 'append',
-							replacement: 'append'
+							match: 'apply',
+							replacement: '<%= grunt.file.read("src/javascript/polyfilled/apply.js") %>'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/javascript/defr.main.js'], dest: 'lib/localstorage-polyfilled'}
+					{expand: true, flatten: true, src: ['src/javascript/main.js'], dest: 'lib/polyfilled/localstorage'}
 				]
 			},
-			defrSimple: {
+			modernSimpleExample: {
 				options: {
 					patterns: [
 						{
@@ -99,15 +87,32 @@ module.exports = function(grunt) {
 						},
 						{
 							match: 'defr',
-							replacement: 'defr.simple.min.js'
+							replacement: 'defr.modern-simple.min.js'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/simple'}
+					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/modern/simple'}
 				]
 			},
-			defrSimplePolyfilled: {
+			modernLocalstorageExample: {
+				options: {
+					patterns: [
+						{
+							match: 'description',
+							replacement: '<%= grunt.file.read("src/html/localstorage.html") %>'
+						},
+						{
+							match: 'defr',
+							replacement: 'defr.modern-localstorage.min.js'
+						}
+					]
+				},
+				files: [
+					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/modern/localstorage'}
+				]
+			},
+			polyfilledSimpleExample: {
 				options: {
 					patterns: [
 						{
@@ -116,15 +121,15 @@ module.exports = function(grunt) {
 						},
 						{
 							match: 'defr',
-							replacement: 'defr.simple.polyfilled.min.js'
+							replacement: 'defr.polyfilled-simple.min.js'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/simple-polyfilled'}
+					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/polyfilled/simple'}
 				]
 			},
-			defrLocalstorage: {
+			polyfilledLocalstorageExample: {
 				options: {
 					patterns: [
 						{
@@ -133,74 +138,120 @@ module.exports = function(grunt) {
 						},
 						{
 							match: 'defr',
-							replacement: 'defr.localstorage.min.js'
+							replacement: 'defr.polyfilled-localstorage.min.js'
 						}
 					]
 				},
 				files: [
-					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/localstorage'}
-				]
-			},
-			defrLocalstoragePolyfilled: {
-				options: {
-					patterns: [
-						{
-							match: 'description',
-							replacement: '<%= grunt.file.read("src/html/localstorage.html") %>'
-						},
-						{
-							match: 'defr',
-//							replacement: 'defr.localstorage.polyfilled.js'
-							replacement: 'defr.localstorage.polyfilled.min.js'
-						}
-					]
-				},
-				files: [
-					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/localstorage-polyfilled'}
+					{expand: true, flatten: true, src: ['src/html/index.html'], dest: 'lib/polyfilled/localstorage'}
 				]
 			}
 		},
 		copy: {
-			library: {
+			modernSimple: {
 				files: [
-					{src: ['lib/simple/defr.main.js'], dest: 'lib/defr.simple.js'},
-					{src: ['lib/simple-polyfilled/defr.main.js'], dest: 'lib/defr.simple.polyfilled.js'},
-					{src: ['lib/localstorage/defr.main.js'], dest: 'lib/defr.localstorage.js'},
-					{src: ['lib/localstorage-polyfilled/defr.main.js'], dest: 'lib/defr.localstorage.polyfilled.js'}
+					{src: ['lib/modern/simple/main.js'], dest: 'lib/defr.modern-simple.js'}
 				]
 			},
-			example: {
+			modernLocalstorage: {
 				files: [
-					{src: ['lib/simple/index.html'], dest: 'example/index-simple.html'},
-					{src: ['lib/simple-polyfilled/index.html'], dest: 'example/index-simple-polyfilled.html'},
-					{src: ['lib/localstorage/index.html'], dest: 'example/index-localstorage.html'},
-					{src: ['lib/localstorage-polyfilled/index.html'], dest: 'example/index-localstorage-polyfilled.html'}
+					{src: ['lib/modern/localstorage/main.js'], dest: 'lib/defr.modern-localstorage.js'}
+				]
+			},
+			polyfilledSimple: {
+				files: [
+					{src: ['lib/polyfilled/simple/main.js'], dest: 'lib/defr.polyfilled-simple.js'}
+				]
+			},
+			polyfilledLocalstorage: {
+				files: [
+					{src: ['lib/polyfilled/localstorage/main.js'], dest: 'lib/defr.polyfilled-localstorage.js'}
+				]
+			},
+			modernSimpleExample: {
+				files: [
+					{src: ['lib/modern/simple/index.html'], dest: 'example/modern-simple.html'}
+				]
+			},
+			modernLocalstorageExample: {
+				files: [
+					{src: ['lib/modern/localstorage/index.html'], dest: 'example/modern-localstorage.html'}
+				]
+			},
+			polyfilledSimpleExample: {
+				files: [
+					{src: ['lib/polyfilled/simple/index.html'], dest: 'example/polyfilled-simple.html'}
+				]
+			},
+			polyfilledLocalstorageExample: {
+				files: [
+					{src: ['lib/polyfilled/localstorage/index.html'], dest: 'example/polyfilled-localstorage.html'}
 				]
 			}
 		},
-		clean: ['lib/simple', 'lib/simple-polyfilled', 'lib/localstorage', 'lib/localstorage-polyfilled'],
+		clean: {
+			modernSimple: ['lib/modern'],
+			modernLocalstorage: ['lib/modern'],
+			polyfilledSimple: ['lib/polyfilled'],
+			polyfilledLocalstorage: ['lib/polyfilled']
+		},
 		uglify : {
-			simple : {
-				src : 'lib/simple/defr.main.js',
-				dest : 'lib/defr.simple.min.js'
+			modernSimple : {
+				src : 'lib/modern/simple/main.js',
+				dest : 'lib/defr.modern-simple.min.js'
 			},
-			simplePolyfilled : {
-				src : 'lib/simple-polyfilled/defr.main.js',
-				dest : 'lib/defr.simple.polyfilled.min.js'
+			modernLocalstorage : {
+				src : 'lib/modern/localstorage/main.js',
+				dest : 'lib/defr.modern-localstorage.min.js'
 			},
-			localstorage : {
-				src : 'lib/localstorage/defr.main.js',
-				dest : 'lib/defr.localstorage.min.js'
+			polyfilledSimple : {
+				src : 'lib/polyfilled/simple/main.js',
+				dest : 'lib/defr.polyfilled-simple.min.js'
 			},
-			localstoragePolyfilled : {
-				src : 'lib/localstorage-polyfilled/defr.main.js',
-				dest : 'lib/defr.localstorage.polyfilled.min.js'
+			polyfilledLocalstorage : {
+				src : 'lib/polyfilled/localstorage/main.js',
+				dest : 'lib/defr.polyfilled-localstorage.min.js'
 			}
 		},
 		watch : {
-			build : {
-				files : ['src/*/*'],
-				tasks : ['default'],
+			modernSimple : {
+				files : ['src/javascript/main.js', 'src/javascript/simple.js', 'src/javascript/modern/assets.js', 'src/javascript/modern/apply.js'],
+				tasks : ['modern-simple'],
+				options : {
+					spawn : false
+				}
+			},
+			modernLocalstorage : {
+				files : ['src/javascript/main.js', 'src/javascript/localstorage.js', 'src/javascript/modern/assets.js', 'src/javascript/modern/apply.js'],
+				tasks : ['modern-localstorage'],
+				options : {
+					spawn : false
+				}
+			},
+			polyfilledSimple : {
+				files : ['src/javascript/main.js', 'src/javascript/simple.js', 'src/javascript/polyfilled/assets.js', 'src/javascript/polyfilled/apply.js'],
+				tasks : ['polyfilled-simple'],
+				options : {
+					spawn : false
+				}
+			},
+			polyfilledLocalstorage : {
+				files : ['src/javascript/main.js', 'src/javascript/localstorage.js', 'src/javascript/polyfilled/assets.js', 'src/javascript/polyfilled/apply.js'],
+				tasks : ['polyfilled-localstorage'],
+				options : {
+					spawn : false
+				}
+			},
+			simpleExample : {
+				files : ['src/html/index.html', 'src/html/simple.html'],
+				tasks : ['modern-simple-example', 'polyfilled-simple-example'],
+				options : {
+					spawn : false
+				}
+			},
+			localstorageExample : {
+				files : ['src/html/index.html', 'src/html/localstorage.html'],
+				tasks : ['modern-localstorage-example', 'polyfilled-localstorage-example'],
 				options : {
 					spawn : false
 				}
@@ -212,5 +263,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.registerTask('default', ['replace:simple', 'replace:localstorage', 'replace:simplePolyfilled', 'replace:localstoragePolyfilled', 'uglify', 'copy:library', 'replace:defrSimple', 'replace:defrLocalstorage', 'replace:defrSimplePolyfilled', 'replace:defrLocalstoragePolyfilled', 'copy:example', 'clean']);
+	grunt.registerTask('modern-simple', ['replace:modernSimple', 'uglify:modernSimple', 'copy:modernSimple', 'clean:modernSimple']);
+	grunt.registerTask('modern-simple-example', ['replace:modernSimpleExample', 'copy:modernSimpleExample', 'clean:modernSimple']);
+	grunt.registerTask('modern-localstorage', ['replace:modernLocalstorage', 'uglify:modernLocalstorage', 'copy:modernLocalstorage', 'clean:modernLocalstorage']);
+	grunt.registerTask('modern-localstorage-example', ['replace:modernLocalstorageExample', 'copy:modernLocalstorageExample', 'clean:modernLocalstorage']);
+	grunt.registerTask('polyfilled-simple', ['replace:polyfilledSimple', 'uglify:polyfilledSimple', 'copy:polyfilledSimple', 'clean:polyfilledSimple']);
+	grunt.registerTask('polyfilled-simple-example', ['replace:polyfilledSimpleExample', 'copy:polyfilledSimpleExample', 'clean:polyfilledSimple']);
+	grunt.registerTask('polyfilled-localstorage', ['replace:polyfilledLocalstorage', 'uglify:polyfilledLocalstorage', 'copy:polyfilledLocalstorage', 'clean:polyfilledLocalstorage']);
+	grunt.registerTask('polyfilled-localstorage-example', ['replace:polyfilledLocalstorageExample', 'copy:polyfilledLocalstorageExample', 'clean:polyfilledLocalstorage']);
+	grunt.registerTask('default', ['modern-simple', 'modern-localstorage', 'polyfilled-simple', 'polyfilled-localstorage', 'modern-simple-example', 'modern-localstorage-example', 'polyfilled-simple-example', 'polyfilled-localstorage-example']);
 }
