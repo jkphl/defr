@@ -1,1 +1,1 @@
-		headElement[appendChild](this.arm().e)[onloadHandlerName]();
+		headElement[appendChild](this.arm(localStorageSupport).e)[onloadHandlerName]();
