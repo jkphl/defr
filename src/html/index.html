@@ -3,12 +3,16 @@
     <head>
         <meta charset="utf-8" />
         <title>Deferred loading of external CSS and JavaScript resources</title>
-        <!--[if (gte IE 7)&(lte IE 8)]><comment class="defr"><![endif]-->
+        
+        
+        <!--[if (gte IE 7)&(lte IE 8)]><script>document.write('<comment class="defr">')</script><![endif]-->
         <noscript id="defr-1" class="defr" itemtype="http://defr.jkphl.is/assets" itemscope="itemscope">
             <link rel="stylesheet" type="text/css" href="res/stylesheet-1.css"/>
             <link itemprop="script" type="text/javascript" href="res/script-1.js" onload="console.log('Loaded first script')"/>
         </noscript>
         <style><![CDATA[/*</comment><!--*/]]>--></style>
+        
+        
         <style>
 body {
     padding: 2em;
@@ -30,8 +34,6 @@ label, a {
     text-decoration: underline;
 }
         </style>
-        
-        
     </head>
     <body>
         <h1>Deferred loading of external CSS and JavaScript resources</h1>
@@ -46,12 +48,16 @@ label, a {
         </ol>
         <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
         @@description
-        <!--[if (gte IE 7)&(lte IE 8)]><comment class="defr"><![endif]-->
+        
+        
+        <!--[if (gte IE 7)&(lte IE 8)]><script>document.write('<comment class="defr">')</script><![endif]-->
         <noscript id="defr-2" class="defr" itemscope="itemscope">
             <link itemprop="script" rel="prefetch" type="text/javascript" href="res/script-2.js"/>
             <link rel="stylesheet" type="text/css" href="res/stylesheet-2.css"/>
         </noscript>
         <style><![CDATA[/*</comment><!--*/]]>--></style>
+        
+        
         <script src="../lib/@@defr"></script>
         <script>/* <![CDATA[ */ window.console = window.console || {log: function(msg) { alert('This browser doesn\'t support printing to the console,\nso the following message is shown in this alert box:\n\n' + msg); }}; (document.forms[0].autoload.checked = document.cookie.indexOf('defr=1') >= 0) && defr();/* ]]> */</script>
     </body>
