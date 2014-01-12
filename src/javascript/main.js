@@ -63,6 +63,7 @@
 	        }
 	        me.e.type			= javascriptMime;
 	        me.e.defer			= true;
+	        me.e.async			= false;
 	        me.r				= 'src';
 	        me.j				= 1;
     	}
