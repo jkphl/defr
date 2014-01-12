@@ -307,8 +307,8 @@ Resources
 
 * [Extending HTML5 — Microdata](http://html5doctor.com/microdata/)
 * [Events on script and link elements](http://pieisgood.org/test/script-link-events/)
-* [The HTML5 `<link>´ element](http://www.w3.org/TR/2011/WD-html5-author-20110809/the-link-element.html)
-* [The HTML5 `<script>´ element](http://www.w3.org/TR/html5/scripting-1.html#the-script-element)
+* [The HTML5 link element](http://www.w3.org/TR/2011/WD-html5-author-20110809/the-link-element.html)
+* [The HTML5 script element](http://www.w3.org/TR/html5/scripting-1.html#the-script-element)
 * [Deep dive into the murky waters of script loading](http://www.html5rocks.com/en/tutorials/speed/script-loading)
 
 
