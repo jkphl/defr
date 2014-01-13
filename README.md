@@ -3,9 +3,9 @@ defr
 
 is an — at present: proof-of-concept — simple usage pattern and lightweight JavaScript library for **deferred loading and localStorage caching of external CSS and JavaScript** resources.
 
-There are two variants of the library, both of them having no dependencies: The "simple" version weighs no more than 1.3 kB (minified) and features everything that's necessary for **deferred loading**. The "localstorage" version adds support for **localStorage caching** (if supported by the browser) and weighs ~2.8 kB.
+There are basically two versions of the library, one for [modern browsers](blob/master/lib/defr.modern-simple.js) and a polyfilled (and bigger) variant for [older browsers](blob/master/lib/defr.polyfilled-simple.js). Additionally, there's a version of each library supporting `localStorage` caching of CSS and JavaScript resources (again separated for [modern](blob/master/lib/defr.modern-localstorage.js) and [older](blob/master/lib/defr.polyfilled-localstorage.js) browsers). 
 
-Please be aware that I hacked all this together in about one day, so don't expect it to be rocket science at the moment. It should, however, illustrate my thoughts. I'm happily awaiting your feedback and your suggestions!
+Please be aware that I hacked all this together in very little time, so don't expect it to be rocket science at the moment. It should, however, illustrate my thoughts. I'm happily awaiting your feedback and your suggestions!
 
 
 Basics
@@ -54,7 +54,9 @@ What about that `itemtype` and `itemprop` stuff?
 
 According to the [HTML5 vocabulary](http://www.w3.org/TR/2011/WD-html5-author-20110809/the-noscript-element.html), a `<noscript>` element may only contain `<meta>`, `<link>` and `<style>` elements — but no `<script>` elements, unfortunately. To comply with the HTML5 validation rules, we have to "misuse" the `<link>` element for referencing external JavaScript resources. For my taste, that's absolutely ok, as it's nothing more than the reference established by e.g. `<link rel="stylesheet"/>` for a CSS resource. There is, however, no appropriate `rel` value we could use for JavaScript, so we have to omit it altogether (Well, we could employ e.g. `rel="prefetch"`, but that would definitely be a case of misuse ...). 
 
-The [W3C HTML5 validator](http://validator.w3.org) requires each `<link>` element to either have a `rel` or an `itemprop` attribute (with the latter being part of the [Microdata](http://html5doctor.com/microdata) specification). Furthermore, an element having an `itemprop` attribute must also be a descendant of an element having the `itemscope` attribute (see the `<noscript>` in the example). As I'm a huge fan of [micro information](https://github.com/jkphl/micrometa) anyway, I finally added the `itemtype="http://defr.jkphl.is/asset"` attribute to clearly indicate that it's a *defr* `<noscript>` element. At the same time, **this usage pattern is valid HTML5** out of the box.
+The [W3C HTML5 validator](http://validator.w3.org) requires each `<link>` element to either have a `rel` or an `itemprop` attribute (with the latter being part of the [Microdata](http://html5doctor.com/microdata) specification). Furthermore, an element having an `itemprop` attribute must also be a descendant of an element having the `itemscope` attribute (see the `<noscript>` in the example). As I'm a huge fan of [micro information](https://github.com/jkphl/micrometa) anyway, I finally added the `itemtype="http://defr.jkphl.is/asset"` attribute to clearly indicate that it's a *defr* `<noscript>` element. The complete microdata vocabulary used by *defr* will be [available soon](http://jkphl.github.io/assets/index.html).
+
+At the same time, **this usage pattern is valid HTML5** out of the box.
 
 
 Employing defr
@@ -148,10 +150,15 @@ When JavaScript is available, a `<comment class="defr">` element is dynamically 
 Yeah, I know this doesn't feel right. But be honest: The *real* problem is not this hack, is it?
 
 
-Live demo
----------
+Examples / live demo
+--------------------
 
-You can try out these two demo pages [with](http://defr.jkphl.is/index-localstorage.html) and [without](http://defr.jkphl.is/index-simple.html) `localStorage` support.
+There's an example / demo page for each of the library versions that you can use for testing your platform and browser:
+
+*	[Simple asset loading in modern browsers](http://jkphl.github.io/example/modern-simple.html) (modern-simple)
+*	[Simple asset loading in older browsers](http://jkphl.github.io/example/polyfilled-simple.html) (polyfilled-simple)
+*	[localStorage caching in modern browsers](http://jkphl.github.io/example/modern-localstorage.html) (modern-localstorage)
+*	[localStorage caching in older browsers](http://jkphl.github.io/example/polyfilled-localstorage.html) (polyfilled-localstorage)
 
 
 Supported / tested browsers
