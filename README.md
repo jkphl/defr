@@ -208,9 +208,9 @@ These are the browser / platform combinations that I explicitly tested. If you h
 		<tr>
 			<th>IE 10</th>
 			<td>—</td>
-			<td>?</td>
-			<td>?</td>
-			<td>?</td>
+			<td>❶❷</td>
+			<td>❶❷</td>
+			<td>❶❷</td>
 			<td>—</td>
 		</tr>
 		<tr>

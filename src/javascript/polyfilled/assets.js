@@ -3,7 +3,8 @@
 	appVersion					= navigator.appVersion,
 	ieVersion					= (appVersion[indexOf]('MSIE') > -1) ? parseFloat(appVersion.split('MSIE')[1], 10) : 99,
 	ieSuppressQuerySelectorAll	= (ieVersion == 8),
-	ieCommentStyle				= (ieVersion == 7) || (ieVersion == 8);
+	ieCommentStyle				= (ieVersion == 7) || (ieVersion == 8),
+	useCreateStyleSheet			= (ieVersion < 10) && (createStyleSheet in doc);
 	
 	/**
 	 * Find and extract the deferred assets in the document
