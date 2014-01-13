@@ -6,7 +6,7 @@
     			var stylesheet		= doc[createStyleSheet]();
     			stylesheet.cssText	= me.e.innerText || me.e.text;
     		} else {
-    			doc[createStyleSheet](me.e[getAttribute]('href'));
+    			doc[createStyleSheet](me.e[getAttribute]('href') || me.e.href);
     		}
     		
     	// Else

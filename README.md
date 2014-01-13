@@ -299,7 +299,7 @@ I will try to do some tests on mobile devices soon.
 
 Current problems / caveats
 --------------------------
-* IE9 is somehow buggy (not sure if this is still true, didn't test the current stage yet; more of a reminder to myself)
+* Fallback with deactivated JavaScript has to be tested (all clients / platforms)
 
 
 Resources
