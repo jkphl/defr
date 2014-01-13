@@ -15,11 +15,33 @@
         
         <style>
 body {
-    padding: 2em;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.4;
+    font-size: 1em;
+    margin: 0;
+    color: #222;
+    background: #fafafa;
 }
-li {
+header {
+    padding: 1.5em 3em;
+    background-color: #fff;
+}
+header p, div {
+    max-width: 50em;
+}
+h1 {
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+}
+section {
+    border-top: 1px solid #eee;
+    padding: 1.5em 3em 0 3em;
+}
+ol {
+    margin: 3em 0;
+}
+ol li {
     color: #ccc;
     text-decoration: line-through;
     margin-bottom: .5em;
@@ -33,27 +55,68 @@ label, a {
     color: blue;
     text-decoration: underline;
 }
+footer {
+    display: block;
+    margin: 3em 0 0 0;
+    padding: 0 3em 3em 3em;
+}
+footer p {
+    margin: 0;
+    font-size: .7em;
+}
+button {
+    border: none;
+    background-color: #ddd;
+    padding: 1em;
+    cursor: pointer;
+}
+button:hover {
+    color: #fff;
+    background-color: #090;
+}
         </style>
     </head>
     <body>
-        <h1>Deferred loading of external CSS and JavaScript resources</h1>
-        <p>This page features two separate bundles of assets (CSS and JavaScript files; one in the <code>&lt;head&gt;</code> section, one near the closing <code>&lt;body&gt;</code> element) that are not loaded / applied <strong>until you click this button</strong> (JavaScript must be enabled!):</p>
-        <p><button type="button" onclick="defr();this.disabled=true;this.value='Deferred CSS and JavaScript assets have been activated!'">Activate deferred CSS and JavaScript assets</button></p>
-        <p>You will see the results here:</p>
-        <ol>
-            <li id="first-css">This option will become active when the first CSS file has been loaded and applied (first asset bundle).</li>
-            <li id="second-css">This option will become active when the second CSS file has been loaded and applied (first asset bundle).</li>
-            <li id="first-script">This option will become active when the first JavaScript file has been loaded and applied (first asset bundle). Also, it features an <code>onload</code> attribute, which should print a happy "Loaded first script" to your console as soon as it is activated.</li>
-            <li id="second-script">This option will become active when the second JavaScript file has been loaded and applied (second asset bundle). It contains instructions to print "Loaded second script" to your console as soon as it is activated.</li>
-        </ol>
-        <p>You should watch the network tab of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen (DOMContentLoaded event).</p>
-        <form>
-    <h2>Loading with localStorage caching</h2>
-    <p>In this example, the assets get cached in the <code>localStorage</code> of your browser once they have been fetched from the remote server. You can see this in the resources tab of your developer tools. If you reload the page, you won't see any further requests for the assets, as they are directly delivered from the <code>localStorage</code>. You can <button type="button" onclick="try{localStorage.clear()}catch(e){}">clear the <code>localStorage</code></button> and retry.</p>
-    <p>Now <label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> activate autoloading of the deferred assets</label> and <button type="button" onclick="document.location.reload(true)">reload the page</button> while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.polyfilled-localstorage.min.js</code> library itself). This is the effect of deferred loading.</p>
-    <p>There's also a simple version of this example without <code>localStorage</code> caching. Try the <a href="modern-simple.html" onclick="document.cookie='defr=0'">version for modern browsers</a> or the polyfilled <a href="polyfilled-simple.html" onclick="document.cookie='defr=0'">version for older ones</a>.</p>
+        <header>
+            <h1>DEFR</h1>
+            <p>A simple usage pattern and lightweight JavaScript library for deferred loading of external CSS and JavaScript resources with optional support for localStorage caching.</p>
+        </header>
+        <section>
+            <div>
+                <h2>localStorage caching in older browsers (polyfilled-localstorage)</h2>
+                <p>
+                    This page features two separate bundles of assets (CSS and JavaScript files; one in the <code>&lt;head&gt;</code> section, 
+                    one near the closing <code>&lt;body&gt;</code> element) that are not loaded / applied <strong>until you click the following button</strong>
+                    (JavaScript must be enabled!) or activate autoloading of the deferred assets (see below). You should watch the network tab
+                    of your developer tools. In Chrome the blue line roughly indicates the moment when this page is rendered to your screen
+                    (DOMContentLoaded event).
+                </p>
+                <p>
+                    <button type="button" onclick="defr();this.disabled=true;this.value='Deferred CSS and JavaScript assets have been activated!'">Activate deferred CSS and JavaScript assets</button>
+                    <button type="button" onclick="document.location.reload(true)">Reload the page</button>
+                    <button type="button" onclick="try{localStorage.clear()}catch(e){}">Clear the <code>localStorage</code></button>
+                </p>
+                <p>You will see the results here:</p>
+                <ol>
+                    <li id="first-css">This option will become active when the first CSS file has been loaded and applied (first asset bundle).</li>
+                    <li id="second-css">This option will become active when the second CSS file has been loaded and applied (first asset bundle).</li>
+                    <li id="first-script">This option will become active when the first JavaScript file has been loaded and applied (first asset bundle). Also, it features an <code>onload</code> attribute, which should print a happy "Loaded first script" to your console as soon as it is activated.</li>
+                    <li id="second-script">This option will become active when the second JavaScript file has been loaded and applied (second asset bundle). It contains instructions to print "Loaded second script" to your console as soon as it is activated.</li>
+                </ol>
+                <form>
+    <p><label><input name="autoload" type="checkbox" value="1" onclick="document.cookie='defr='+this.checked*1"/> Activate autoloading of the deferred assets</label> and reload the page while watching your network tab. You should see that the four assets are loaded <strong>after the DOMContentLoaded event</strong> (as opposed to the <code>defr.polyfilled-localstorage.min.js</code> library itself). This is the effect of deferred loading.</p>
+    <p>In this example, the assets get cached in the <code>localStorage</code> of your browser once they have been fetched from the remote server. You can see this in the resources tab of your developer tools. If you reload the page, you won't see any further requests for the assets, as they are directly delivered from the <code>localStorage</code>.</p>
 </form>
-        
+                <h2>All examples</h2>
+                <ul>
+                    <li><a href="modern-simple.html" onclick="document.cookie='defr=0'">Simple asset loading in modern browsers (modern-simple)</a></li>
+                    <li><a href="polyfilled-simple.html" onclick="document.cookie='defr=0'">Simple asset loading in older browsers (polyfilled-simple)</a></li>
+                    <li><a href="modern-localstorage.html" onclick="document.cookie='defr=0'">localStorage caching in modern browsers (modern-localstorage)</a></li>
+                    <li><a href="polyfilled-localstorage.html" onclick="document.cookie='defr=0'">localStorage caching in older browsers (polyfilled-localstorage)</a></li>
+                </ul>
+            </div>
+        </section>
+        <footer><p>Generated at Mon Jan 13 2014 13:30:03 CET/CEST by <a href="http://jkphl.github.io/defr/" target="_blank">defr</a>.</p></footer>
         
         <!--[if (gte IE 7)&(lte IE 8)]><script>document.write('<comment class="defr">')</script><![endif]-->
         <noscript id="defr-2" class="defr" itemscope="itemscope">

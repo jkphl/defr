@@ -82,6 +82,18 @@ module.exports = function(grunt) {
 				options: {
 					patterns: [
 						{
+							match: 'headline',
+							replacement: 'Simple asset loading in modern browsers (modern-simple)'
+						},
+						{
+							match: 'localstorage',
+							replacement: ''
+						},
+						{
+							match: 'timestamp',
+							replacement: '<%= grunt.template.today() %>'
+						},
+						{
 							match: 'description',
 							replacement: '<%= grunt.file.read("src/html/simple.html") %>'
 						},
@@ -98,6 +110,18 @@ module.exports = function(grunt) {
 			modernLocalstorageExample: {
 				options: {
 					patterns: [
+						{
+							match: 'headline',
+							replacement: 'localStorage caching in modern browsers (modern-localstorage)'
+						},
+						{
+							match: 'localstorage',
+							replacement: '<button type="button" onclick="try{localStorage.clear()}catch(e){}">Clear the <code>localStorage</code></button>'
+						},
+						{
+							match: 'timestamp',
+							replacement: '<%= grunt.template.today() %>'
+						},
 						{
 							match: 'description',
 							replacement: '<%= grunt.file.read("src/html/localstorage.html") %>'
@@ -116,6 +140,18 @@ module.exports = function(grunt) {
 				options: {
 					patterns: [
 						{
+							match: 'headline',
+							replacement: 'Simple asset loading in older browsers (polyfilled-simple)'
+						},
+						{
+							match: 'localstorage',
+							replacement: ''
+						},
+						{
+							match: 'timestamp',
+							replacement: '<%= grunt.template.today() %>'
+						},
+						{
 							match: 'description',
 							replacement: '<%= grunt.file.read("src/html/simple.html") %>'
 						},
@@ -132,6 +168,18 @@ module.exports = function(grunt) {
 			polyfilledLocalstorageExample: {
 				options: {
 					patterns: [
+						{
+							match: 'headline',
+							replacement: 'localStorage caching in older browsers (polyfilled-localstorage)'
+						},
+						{
+							match: 'localstorage',
+							replacement: '<button type="button" onclick="try{localStorage.clear()}catch(e){}">Clear the <code>localStorage</code></button>'
+						},
+						{
+							match: 'timestamp',
+							replacement: '<%= grunt.template.today() %>'
+						},
 						{
 							match: 'description',
 							replacement: '<%= grunt.file.read("src/html/localstorage.html") %>'
